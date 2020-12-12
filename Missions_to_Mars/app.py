@@ -1,9 +1,10 @@
-from flask import Flask, render_template
-import pymongo
+from flask import Flask, render_template, redirect
+from flask-pymongo import PyMongo
 import scrape_mars
 
 app = Flask(__name__)
 
+app.config['MONGO_URI']='mongodb://localhost:27017/mars_db'
 mongo = PyMongo(app)
 
 # setup mongo connection  DO I STILL NEED THIS?
@@ -20,7 +21,7 @@ def scrape():
     mars = mongo.db.mars 
     mars_data = scrape_mars.scrape()
     mars.update({}, mars_data, upsert=True)
-    return redirect("http://localhost:5000/", code=302)
+    return redirect("/", code=302)
 
 if __name__ == "__main__":
     app.run(debug=True)
