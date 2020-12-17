@@ -2,14 +2,34 @@
  "cells": [
   {
    "cell_type": "code",
-   "execution_count": 1,
+   "execution_count": 64,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Requirement already satisfied: selenium in c:\\users\\mbannon\\anaconda3\\lib\\site-packages (3.141.0)\n",
+      "Requirement already satisfied: urllib3 in c:\\users\\mbannon\\anaconda3\\lib\\site-packages (from selenium) (1.25.9)\n",
+      "Requirement already satisfied: splinter in c:\\users\\mbannon\\anaconda3\\lib\\site-packages (0.14.0)\n",
+      "Requirement already satisfied: six in c:\\users\\mbannon\\anaconda3\\lib\\site-packages (from splinter) (1.15.0)\n",
+      "Requirement already satisfied: selenium>=3.141.0 in c:\\users\\mbannon\\anaconda3\\lib\\site-packages (from splinter) (3.141.0)\n",
+      "Requirement already satisfied: urllib3 in c:\\users\\mbannon\\anaconda3\\lib\\site-packages (from selenium>=3.141.0->splinter) (1.25.9)\n"
+     ]
+    }
+   ],
    "source": [
     "# Imports\n",
+    "import pymongo\n",
     "import pandas as pd\n",
     "from bs4 import BeautifulSoup\n",
+    "import urllib.request\n",
+    "from IPython.display import HTML\n",
     "import re\n",
+    "import requests\n",
+    "import json\n",
+    "!pip install selenium\n",
+    "!pip install splinter\n",
     "from splinter import Browser"
    ]
   },
@@ -22,7 +42,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
+   "execution_count": 65,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -90,16 +110,16 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": 70,
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA19046-1920x1200.jpg'"
+       "'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA19334-1920x1200.jpg'"
       ]
      },
-     "execution_count": 3,
+     "execution_count": 70,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -126,45 +146,6 @@
     "\n",
     "# Display full link to featured image\n",
     "featured_image_url"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 4,
-   "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "<article alt=\"Plumbing Coastal Depths in Titan's Kraken Mare\" class=\"carousel_item\" style=\"background-image: url('/spaceimages/images/wallpaper/PIA19046-1920x1200.jpg');\">\n",
-       "<div class=\"default floating_text_area ms-layer\">\n",
-       "<h2 class=\"category_title\">\n",
-       "</h2>\n",
-       "<h2 class=\"brand_title\">\n",
-       "\t\t\t\t  FEATURED IMAGE\n",
-       "\t\t\t\t</h2>\n",
-       "<h1 class=\"media_feature_title\">\n",
-       "\t\t\t\t  Plumbing Coastal Depths in Titan's Kraken Mare\t\t\t\t</h1>\n",
-       "<div class=\"description\">\n",
-       "</div>\n",
-       "<footer>\n",
-       "<a class=\"button fancybox\" data-description=\"NASA's Cassini radar data reveal the depth of a liquid methane/ethane sea on Saturn's moon Titan near the mouth of a large, flooded river valley.\" data-fancybox-group=\"images\" data-fancybox-href=\"/spaceimages/images/mediumsize/PIA19046_ip.jpg\" data-link=\"/spaceimages/details.php?id=PIA19046\" data-title=\"Plumbing Coastal Depths in Titan's Kraken Mare\" id=\"full_image\">\n",
-       "\t\t\t\t\tFULL IMAGE\n",
-       "\t\t\t\t  </a>\n",
-       "</footer>\n",
-       "</div>\n",
-       "<div class=\"gradient_container_top\"></div>\n",
-       "<div class=\"gradient_container_bottom\"></div>\n",
-       "</article>"
-      ]
-     },
-     "execution_count": 4,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
-   "source": [
-    " soup.find('article')"
    ]
   },
   {
@@ -238,6 +219,7 @@
    ]
   },
   {
+   "attachments": {},
    "cell_type": "markdown",
    "metadata": {},
    "source": [
